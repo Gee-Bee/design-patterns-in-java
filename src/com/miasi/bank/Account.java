@@ -1,0 +1,112 @@
+package com.miasi.bank;
+
+import java.util.ArrayList;
+
+public class Account {
+	private String number;
+	private String firstName, lastName;
+	private int balance;
+	private int debitLimit;
+	private ArrayList history = new ArrayList();
+	
+	/**
+	 * Account creation
+	 * @param number
+	 * @param firstName
+	 * @param lastName
+	 */
+	public Account(String number, String firstName, String lastName) {
+		this.number = number;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.balance = 0;
+	}
+	
+	/**
+	 * @return Account number
+	 */
+	public String number() {
+		return number;
+	}
+	
+	/**
+	 * @return Account owner
+	 */
+	public String wlasciciel() {
+		return firstName + " " + lastName;
+	}
+	
+	/** 
+	 * @return Account balance
+	 */
+	public int balance() {
+		return balance;
+	}
+	
+	/**
+	 * @return Account debitLimit
+	 */
+	public int debitLimit() {
+		return debitLimit;
+	}
+	
+	/**
+	 * Set debitLimit
+	 * @param debit
+	 */
+	public void setDebitLimit(int debit) {
+		if (debit > 100)
+			debitLimit = debit;
+	}
+
+	/**
+	 * Display account history
+	 */
+	public void displayHistory() {
+		System.out.println(history);
+	}
+	
+	/**
+	 * Deposit given amount
+	 * @param amount
+	 * @return 0
+	 */
+	public int deposit(int amount) {
+		balance += amount;
+		history.add("Deposit: " + amount + ", balance: " + balance);
+		return 0;
+	}
+	
+	/**
+	 * Withdraw given amount
+	 * @param amount
+	 * @return
+	 */
+	public int withdrawal(int amount) {
+		if (balance + debitLimit >= amount) {
+			balance -= amount;
+			history.add("Withdrawal: " + amount + ", balance: " + balance);
+			return 0;
+		}
+		history.add("Failed withdrawal: " + amount + ", balance: " + balance);
+		return -1;
+	}
+	
+	/**
+	 * @return Due interest
+	 */
+	public int interest() {
+		int interest = 0;
+		
+		if (balance < 10000)
+			interest = (int) 0.01 * balance;
+		else if (balance < 50000)
+			interest = 100 + (int) 0.02 * (balance - 10000);
+		else 
+			interest =  100 + 800 + (int) 0.03 * (balance - 50000);
+		
+		history.add("Due interest " + interest);
+		
+		return interest;
+	}
+}

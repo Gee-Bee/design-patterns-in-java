@@ -1,5 +1,6 @@
 package com.miasi.bank;
 
+import java.util.List;
 import java.util.ArrayList;
 
 public class Account {
@@ -7,7 +8,7 @@ public class Account {
 	private String firstName, lastName;
 	private int balance;
 	private int debitLimit;
-	private ArrayList history = new ArrayList();
+	private List history = new ArrayList();
 	
 	/**
 	 * Account creation
@@ -32,7 +33,7 @@ public class Account {
 	/**
 	 * @return Account owner
 	 */
-	public String wlasciciel() {
+	public String owner() {
 		return firstName + " " + lastName;
 	}
 	
@@ -105,7 +106,7 @@ public class Account {
 		else 
 			interest =  100 + 800 + (int) 0.03 * (balance - 50000);
 		
-		history.add("Due interest " + interest);
+//		history.add("Due interest " + interest);
 		
 		return interest;
 	}

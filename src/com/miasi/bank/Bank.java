@@ -1,9 +1,10 @@
 package com.miasi.bank;
 
+import java.util.Map;
 import java.util.HashMap;
 
 public class Bank {
-	private HashMap accounts = new HashMap();
+	private Map<String,Account> accounts = new HashMap<String, Account>();
 
 	/**
 	 * Create account and add to accounts hash.
@@ -32,9 +33,9 @@ public class Bank {
 	 * @param number1
 	 * @param number2
 	 * @param amount
-	 * @return 0 - success, -1 - failure
+	 * @return true - success, false - failure
 	 */
-	public int transfer(String number1, String number2, int amount) {
+	public boolean transfer(String number1, String number2, int amount) {
 		Account account1 = search(number1);
 		Account account2 = search(number2);
 		
@@ -46,12 +47,9 @@ public class Bank {
 	 * @param account1
 	 * @param account2
 	 * @param amount
-	 * @return 0 - success, -1 - failure
+	 * @return true - success, false - failure
 	 */
-	public int transfer(Account account1, Account account2, int amount) {
-		account1.withdrawal(amount);
-		account2.deposit(amount);
-
-		return 0;
+	public boolean transfer(Account account1, Account account2, int amount) {
+		return account1.withdraw(amount) &&	account2.deposit(amount);
 	}
 }

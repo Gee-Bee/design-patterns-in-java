@@ -21,15 +21,43 @@ public class BankTest extends TestCase {
 	}
 
 	public void testSearch() {
-		fail("Not yet implemented");
+		Account account = bank.createAccount("111", "John", "Doe");
+		
+		for (int i : new int[]{1,2}) {
+			account = bank.search("111");
+			assertEquals("111", account.number());
+		}
+		
 	}
 
 	public void testTransferStringStringInt() {
-		fail("Not yet implemented");
+		Account account1 = bank.createAccount("111", "John", "Doe");
+		Account account2 = bank.createAccount("112", "Jane", "Roe");
+		account1.deposit(500);
+		boolean transferSuccess = bank.transfer("111", "112", 200);
+		assertTrue(transferSuccess);
+		assertEquals(300, account1.balance());
+		assertEquals(200, account2.balance());
 	}
 
-	public void testTransferAccountAccountIntt() {
-		fail("Not yet implemented");
+	public void testTransferAccountAccountInt() {
+		Account account1 = bank.createAccount("111", "John", "Doe");
+		Account account2 = bank.createAccount("112", "Jane", "Roe");
+		account1.deposit(500);
+		boolean transferSuccess = bank.transfer(account1, account2, 200);
+		assertTrue(transferSuccess);
+		assertEquals(300, account1.balance());
+		assertEquals(200, account2.balance());
+	}
+	
+	public void testTransferFailure() {
+		Account account1 = bank.createAccount("111", "John", "Doe");
+		Account account2 = bank.createAccount("112", "Jane", "Roe");
+		account1.deposit(500);
+		boolean transferSuccess = bank.transfer(account1, account2, 600);
+		assertFalse(transferSuccess);
+		assertEquals(500, account1.balance());
+		assertEquals(0, account2.balance());
 	}
 
 }

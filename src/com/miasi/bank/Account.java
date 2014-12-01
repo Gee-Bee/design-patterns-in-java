@@ -69,27 +69,27 @@ public class Account {
 	/**
 	 * Deposit given amount
 	 * @param amount
-	 * @return 0
+	 * @return true
 	 */
-	public int deposit(int amount) {
+	public boolean deposit(int amount) {
 		balance += amount;
 		history.add("Deposit: " + amount + ", balance: " + balance);
-		return 0;
+		return true;
 	}
 	
 	/**
 	 * Withdraw given amount
 	 * @param amount
-	 * @return
+	 * @return true - success, false - failure
 	 */
-	public int withdrawal(int amount) {
+	public boolean withdraw(int amount) {
 		if (balance + debitLimit >= amount) {
 			balance -= amount;
 			history.add("Withdrawal: " + amount + ", balance: " + balance);
-			return 0;
+			return true;
 		}
 		history.add("Failed withdrawal: " + amount + ", balance: " + balance);
-		return -1;
+		return false;
 	}
 	
 	/**

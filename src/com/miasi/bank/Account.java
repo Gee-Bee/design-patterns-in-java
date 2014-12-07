@@ -18,17 +18,6 @@ public interface Account {
 	int balance();
 
 	/**
-	 * @return Account debitLimit
-	 */
-	int debitLimit();
-
-	/**
-	 * Set debitLimit
-	 * @param debit
-	 */
-	void setDebitLimit(int debit);
-
-	/**
 	 * Display account history
 	 */
 	void displayHistory();

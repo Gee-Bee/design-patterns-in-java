@@ -29,19 +29,6 @@ public class BaseAccountTest extends TestCase {
 		assertEquals(0, account.balance());
 	}
 	
-	public void testDebitLimit() throws Exception {
-		assertEquals(0, account.debitLimit());
-	}
-	
-	public void testSetTooLowDebitLimit() throws Exception {
-		account.setDebitLimit(50);
-		assertEquals(0, account.debitLimit());
-	}
-	
-	public void testSetDebitLimit() throws Exception {
-		account.setDebitLimit(101);
-		assertEquals(101, account.debitLimit());
-	}
 	
 	public void testDeposit() throws Exception {
 		boolean success = account.deposit(100);
@@ -50,11 +37,10 @@ public class BaseAccountTest extends TestCase {
 	}
 	
 	public void testWithdrawal() throws Exception {
-		account.deposit(400);
-		account.setDebitLimit(200);
+		account.deposit(600);
 		boolean success = account.withdraw(600);
 		assertTrue(success);
-		assertEquals(-200, account.balance());
+		assertEquals(0, account.balance());
 	}
 	
 	public void testFailedWithdrawal() throws Exception {

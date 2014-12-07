@@ -7,7 +7,6 @@ public class BaseAccount implements Account {
 	private String number;
 	private String firstName, lastName;
 	private int balance;
-	private int debitLimit;
 	private List history = new ArrayList();
 	
 	/**
@@ -46,23 +45,6 @@ public class BaseAccount implements Account {
 	public int balance() {
 		return balance;
 	}
-	
-	/* (non-Javadoc)
-	 * @see com.miasi.bank.Account#debitLimit()
-	 */
-	@Override
-	public int debitLimit() {
-		return debitLimit;
-	}
-	
-	/* (non-Javadoc)
-	 * @see com.miasi.bank.Account#setDebitLimit(int)
-	 */
-	@Override
-	public void setDebitLimit(int debit) {
-		if (debit > 100)
-			debitLimit = debit;
-	}
 
 	/* (non-Javadoc)
 	 * @see com.miasi.bank.Account#displayHistory()
@@ -87,7 +69,7 @@ public class BaseAccount implements Account {
 	 */
 	@Override
 	public boolean withdraw(int amount) {
-		if (balance + debitLimit >= amount) {
+		if(amount <= balance) {
 			balance -= amount;
 			history.add("Withdrawal: " + amount + ", balance: " + balance);
 			return true;

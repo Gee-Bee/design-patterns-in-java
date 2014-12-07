@@ -24,16 +24,6 @@ public abstract class AccountDecorator implements Account {
 	}
 
 	@Override
-	public int debitLimit() {
-		return account.debitLimit();
-	}
-
-	@Override
-	public void setDebitLimit(int debit) {
-		account.setDebitLimit(debit);
-	}
-
-	@Override
 	public void displayHistory() {
 		account.displayHistory();
 	}

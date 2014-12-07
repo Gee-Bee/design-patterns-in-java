@@ -1,4 +1,4 @@
-package com.miasi.bank;
+package com.miasi.bank.account;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileDescriptor;

@@ -1,4 +1,4 @@
-package com.miasi.bank;
+package com.miasi.bank.account;
 
 import java.util.List;
 import java.util.ArrayList;

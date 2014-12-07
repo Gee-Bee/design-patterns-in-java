@@ -1,5 +1,7 @@
 package com.miasi.bank;
 
+import com.miasi.bank.account.Account;
+
 import junit.framework.TestCase;
 
 public class BankTest extends TestCase {

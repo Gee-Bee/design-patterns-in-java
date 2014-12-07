@@ -1,4 +1,4 @@
-package com.miasi.bank;
+package com.miasi.bank.account;
 
 public abstract class AccountDecorator implements Account {
 

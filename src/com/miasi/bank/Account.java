@@ -1,113 +1,55 @@
 package com.miasi.bank;
 
-import java.util.List;
-import java.util.ArrayList;
+public interface Account {
 
-public class Account {
-	private String number;
-	private String firstName, lastName;
-	private int balance;
-	private int debitLimit;
-	private List history = new ArrayList();
-	
-	/**
-	 * Account creation
-	 * @param number
-	 * @param firstName
-	 * @param lastName
-	 */
-	public Account(String number, String firstName, String lastName) {
-		this.number = number;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.balance = 0;
-	}
-	
 	/**
 	 * @return Account number
 	 */
-	public String number() {
-		return number;
-	}
-	
+	String number();
+
 	/**
 	 * @return Account owner
 	 */
-	public String owner() {
-		return firstName + " " + lastName;
-	}
-	
+	String owner();
+
 	/** 
 	 * @return Account balance
 	 */
-	public int balance() {
-		return balance;
-	}
-	
+	int balance();
+
 	/**
 	 * @return Account debitLimit
 	 */
-	public int debitLimit() {
-		return debitLimit;
-	}
-	
+	int debitLimit();
+
 	/**
 	 * Set debitLimit
 	 * @param debit
 	 */
-	public void setDebitLimit(int debit) {
-		if (debit > 100)
-			debitLimit = debit;
-	}
+	void setDebitLimit(int debit);
 
 	/**
 	 * Display account history
 	 */
-	public void displayHistory() {
-		System.out.println(history);
-	}
-	
+	void displayHistory();
+
 	/**
 	 * Deposit given amount
 	 * @param amount
 	 * @return true
 	 */
-	public boolean deposit(int amount) {
-		balance += amount;
-		history.add("Deposit: " + amount + ", balance: " + balance);
-		return true;
-	}
-	
+	boolean deposit(int amount);
+
 	/**
 	 * Withdraw given amount
 	 * @param amount
 	 * @return true - success, false - failure
 	 */
-	public boolean withdraw(int amount) {
-		if (balance + debitLimit >= amount) {
-			balance -= amount;
-			history.add("Withdrawal: " + amount + ", balance: " + balance);
-			return true;
-		}
-		history.add("Failed withdrawal: " + amount + ", balance: " + balance);
-		return false;
-	}
-	
+	boolean withdraw(int amount);
+
 	/**
 	 * @return Due interest
 	 */
-	public int interest() {
-		int interest = 0;
-		
-		if (balance < 10000)
-			interest = (int) 0.01 * balance;
-		else if (balance < 50000)
-			interest = 100 + (int) 0.02 * (balance - 10000);
-		else 
-			interest =  100 + 800 + (int) 0.03 * (balance - 50000);
-		
-//		history.add("Due interest " + interest);
-		
-		return interest;
-	}
+	int interest();
+
 }

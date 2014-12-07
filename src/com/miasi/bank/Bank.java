@@ -14,7 +14,7 @@ public class Bank {
 	 * @return
 	 */
 	public Account createAccount(String number, String firstName, String lastName) {
-		Account account = new Account(number, firstName, lastName);
+		Account account = new BaseAccount(number, firstName, lastName);
 		accounts.put(number, account);
 		return account;
 	}

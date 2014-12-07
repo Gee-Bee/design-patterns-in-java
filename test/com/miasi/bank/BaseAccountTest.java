@@ -8,13 +8,13 @@ import java.io.PrintStream;
 
 import junit.framework.TestCase;
 
-public class AccountTest extends TestCase {
+public class BaseAccountTest extends TestCase {
 	
 	Account account;
 
 	protected void setUp() throws Exception {
 		super.setUp();
-		account = new Account("111", "John", "Doe");
+		account = new BaseAccount("111", "John", "Doe");
 	}
 
 	public void testNumber() throws Exception {

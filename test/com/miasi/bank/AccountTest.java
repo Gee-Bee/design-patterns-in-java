@@ -5,6 +5,7 @@ import java.io.FileDescriptor;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.lang.reflect.Method;
 
 import junit.framework.TestCase;
 
@@ -74,19 +75,9 @@ public class AccountTest extends TestCase {
 		assertEquals("[Deposit: 100, balance: 100, Withdrawal: 100, balance: 0, Failed withdrawal: 100, balance: 0]\n", baos.toString());
 	}
 	
-	public void testInterestforBalanceLt10000() throws Exception {
-		account.deposit(8000);
-		assertEquals((int) 0.01 * account.balance(), account.interest());
-	}
-	
-	public void testInterestForBalaceLt50000() throws Exception {
-		account.deposit(20000);
-		assertEquals((int) 100 + (int) 0.02 * (account.balance() - 10000), account.interest());
-	}
-	
-	public void testInterestForBalanceGte50000() throws Exception {
-		account.deposit(60000);
-		assertEquals(100 + 800 + (int) 0.03 * (account.balance() - 50000), account.interest());
+	public void testInterest() throws Exception {
+		Method interest = account.getClass().getMethod("interest");
+		assertEquals(interest.getReturnType(), Integer.TYPE);
 	}
 
 }

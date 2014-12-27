@@ -9,6 +9,7 @@ public class Account {
 	private int balance;
 	private int debitLimit;
 	private List history = new ArrayList();
+	private InterestCalculator interestCalculator;
 	
 	/**
 	 * Account creation
@@ -21,6 +22,7 @@ public class Account {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.balance = 0;
+		this.interestCalculator = new InterestCalculator1();
 	}
 	
 	/**
@@ -97,17 +99,13 @@ public class Account {
 	 * @return Due interest
 	 */
 	public int interest() {
-		int interest = 0;
-		
-		if (balance < 10000)
-			interest = (int) 0.01 * balance;
-		else if (balance < 50000)
-			interest = 100 + (int) 0.02 * (balance - 10000);
-		else 
-			interest =  100 + 800 + (int) 0.03 * (balance - 50000);
-		
-//		history.add("Due interest " + interest);
-		
-		return interest;
+		if (interestCalculator != null)
+			return interestCalculator.calculate(balance);
+		else
+			throw new NullPointerException("No interest calculator assigned");
+	}
+	
+	public void setInterestCalculator(InterestCalculator ic) {
+		this.interestCalculator = ic;
 	}
 }

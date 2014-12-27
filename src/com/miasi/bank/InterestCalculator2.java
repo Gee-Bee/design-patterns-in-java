@@ -11,8 +11,6 @@ public class InterestCalculator2 extends InterestCalculator {
 		else
 			interest = 100 + (int) 0.01 * (balance - 5000);
 		
-//		history.add("Due interest " + interest);
-		
 		return interest;
 	}
 

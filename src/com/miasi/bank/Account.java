@@ -3,7 +3,7 @@ package com.miasi.bank;
 import java.util.List;
 import java.util.ArrayList;
 
-public class Account {
+public class Account extends BankingProduct {
 	private String number;
 	private String firstName, lastName;
 	private int balance;
@@ -23,16 +23,18 @@ public class Account {
 		this.balance = 0;
 	}
 	
-	/**
-	 * @return Account number
+	/* (non-Javadoc)
+	 * @see com.miasi.bank.BankingProduct#number()
 	 */
+	@Override
 	public String number() {
 		return number;
 	}
 	
-	/**
-	 * @return Account owner
+	/* (non-Javadoc)
+	 * @see com.miasi.bank.BankingProduct#owner()
 	 */
+	@Override
 	public String owner() {
 		return firstName + " " + lastName;
 	}
@@ -60,9 +62,10 @@ public class Account {
 			debitLimit = debit;
 	}
 
-	/**
-	 * Display account history
+	/* (non-Javadoc)
+	 * @see com.miasi.bank.BankingProduct#displayHistory()
 	 */
+	@Override
 	public void displayHistory() {
 		System.out.println(history);
 	}
@@ -109,5 +112,9 @@ public class Account {
 //		history.add("Due interest " + interest);
 		
 		return interest;
+	}
+	
+	public boolean accept(Report report) {
+		return report.visit(this);
 	}
 }

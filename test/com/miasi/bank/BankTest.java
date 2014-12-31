@@ -12,7 +12,7 @@ public class BankTest extends TestCase {
 	}
 
 	public void testCreateAccount() {
-		Account account = bank.createAccount("111", "John", "Doe");
+		BankingProduct account = bank.createAccount("111", "John", "Doe");
 		assertEquals("111", account.number());
 		
 		account = bank.search("111");
@@ -21,7 +21,7 @@ public class BankTest extends TestCase {
 	}
 
 	public void testSearch() {
-		Account account = bank.createAccount("111", "John", "Doe");
+		BankingProduct account = bank.createAccount("111", "John", "Doe");
 		
 		for (int i : new int[]{1,2}) {
 			account = bank.search("111");
@@ -58,6 +58,13 @@ public class BankTest extends TestCase {
 		assertFalse(transferSuccess);
 		assertEquals(500, account1.balance());
 		assertEquals(0, account2.balance());
+	}
+	
+	public void testDoingReport() throws Exception {
+		GeneralReport report = new GeneralReport();
+		bank.createAccount("111", "Jan", "Kowalski");
+		bank.createAccount("112", "Janek", "Kowalski");
+		bank.doReport(report);
 	}
 
 }

@@ -1,10 +1,13 @@
 package com.miasi.bank;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.Map.Entry;
 
 public class Bank {
-	private Map<String,Account> accounts = new HashMap<String, Account>();
+	private Map<String,BankingProduct> bankingProducts = new HashMap<String, BankingProduct>();
 
 	/**
 	 * Create account and add to accounts hash.
@@ -15,7 +18,7 @@ public class Bank {
 	 */
 	public Account createAccount(String number, String firstName, String lastName) {
 		Account account = new Account(number, firstName, lastName);
-		accounts.put(number, account);
+		bankingProducts.put(number, (BankingProduct)account);
 		return account;
 	}
 
@@ -25,7 +28,7 @@ public class Bank {
 	 * @return account if found, null otherwise
 	 */	
 	public Account search(String number) {
-		return (Account) accounts.get(number);
+		return (Account) bankingProducts.get(number);
 	}
 	
 	/**
@@ -51,5 +54,20 @@ public class Bank {
 	 */
 	public boolean transfer(Account account1, Account account2, int amount) {
 		return account1.withdraw(amount) &&	account2.deposit(amount);
+	}
+	
+	/**
+	 * 
+	 * @return List of BankingProducts for which raport was generated
+	 */
+	public List<BankingProduct> doReport(Report report) {
+		List<BankingProduct> reportGenerated = new ArrayList<BankingProduct>();
+		for (Entry<String, BankingProduct> entry : bankingProducts.entrySet()) {
+			BankingProduct bankingProduct = (BankingProduct)entry.getValue();
+			if(bankingProduct.accept(report)) {
+				reportGenerated.add(bankingProduct);
+			}
+		}
+		return reportGenerated;
 	}
 }

@@ -4,8 +4,25 @@ import java.util.Map;
 import java.util.HashMap;
 
 public class Bank {
+	private String name;
+	private String number;
 	private Map<String,Account> accounts = new HashMap<String, Account>();
-
+	
+	public Bank(String number, String name) {
+		if(!number.matches("\\d{8}"))
+			throw new IllegalArgumentException("Nieprawidłowy numer banku");
+		this.number = number;
+		this.name = name;
+	}
+	
+	public String name() {
+		return name;
+	}
+	
+	public String number() {
+		return number;
+	}
+	
 	/**
 	 * Create account and add to accounts hash.
 	 * @param number
@@ -35,11 +52,18 @@ public class Bank {
 	 * @param amount
 	 * @return true - success, false - failure
 	 */
-	public boolean transfer(String number1, String number2, int amount) {
-		Account account1 = search(number1);
-		Account account2 = search(number2);
-		
-		return transfer(account1, account2, amount);
+	public boolean transfer(String numberFrom, String numberTo, int amount) {
+		if(!numberFrom.matches("\\d{26}") || !numberTo.matches("\\d{26}"))
+			throw new IllegalArgumentException("Nieprawidłowy numer rachunku");
+		if(!this.number.equals(numberFrom.substring(2,10)))
+			throw new IllegalArgumentException("Rachunek źródłowy jest w innym banku");
+		if(this.number.equals(numberTo.substring(2,11))) {
+			Account accountFrom = search(numberFrom);
+			Account accountTo = search(numberTo);
+			return transferInternal(accountFrom, accountTo, amount);
+		} else {
+			return true;
+		}
 	}
 	
 	/**
@@ -49,7 +73,7 @@ public class Bank {
 	 * @param amount
 	 * @return true - success, false - failure
 	 */
-	public boolean transfer(Account account1, Account account2, int amount) {
+	public boolean transferInternal(Account account1, Account account2, int amount) {
 		return account1.withdraw(amount) &&	account2.deposit(amount);
 	}
 }

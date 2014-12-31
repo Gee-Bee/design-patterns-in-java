@@ -14,11 +14,18 @@ public class AccountTest extends TestCase {
 
 	protected void setUp() throws Exception {
 		super.setUp();
-		account = new Account("111", "John", "Doe");
+		account = new Account("00111111112222222222222222", "John", "Doe");
 	}
 
 	public void testNumber() throws Exception {
-		assertEquals("111", account.number());
+		assertEquals("00111111112222222222222222", account.number());
+	}	
+
+	public void testInvalidNumber() throws Exception {
+		try {
+			account = new Account("1234567a", "John", "Doe");
+			fail("IllegalArgumentException expected");
+		} catch (IllegalArgumentException success) {}
 	}
 
 	public void testOwner() throws Exception {

@@ -17,6 +17,8 @@ public class Account {
 	 * @param lastName
 	 */
 	public Account(String number, String firstName, String lastName) {
+		if(!number.matches("\\d{26}"))
+			throw new IllegalArgumentException("Nieprawidłowy numer rachunku");
 		this.number = number;
 		this.firstName = firstName;
 		this.lastName = lastName;

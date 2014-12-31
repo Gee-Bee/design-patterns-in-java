@@ -8,7 +8,8 @@ public class Account {
 	private String firstName, lastName;
 	private int balance;
 	private int debitLimit;
-	private List history = new ArrayList();
+//	private List history = new ArrayList();
+	private List<Command> history = new ArrayList<Command>();
 	
 	/**
 	 * Account creation
@@ -61,21 +62,28 @@ public class Account {
 	}
 
 	/**
-	 * Display account history
+	 * @return account history
 	 */
-	public void displayHistory() {
-		System.out.println(history);
+	public List<Command> history() {
+		return history;
 	}
 	
+	private boolean executeAndStore(Command command) {
+		command.execute();
+		history.add(command);
+		return command.success();
+	}
 	/**
 	 * Deposit given amount
 	 * @param amount
 	 * @return true
 	 */
 	public boolean deposit(int amount) {
+		Command command = new DepositCommand(this, amount);
+		return executeAndStore(command);
+	}
+	public void __addToBalance(int amount) {
 		balance += amount;
-		history.add("Deposit: " + amount + ", balance: " + balance);
-		return true;
 	}
 	
 	/**
@@ -84,13 +92,11 @@ public class Account {
 	 * @return true - success, false - failure
 	 */
 	public boolean withdraw(int amount) {
-		if (balance + debitLimit >= amount) {
-			balance -= amount;
-			history.add("Withdrawal: " + amount + ", balance: " + balance);
-			return true;
-		}
-		history.add("Failed withdrawal: " + amount + ", balance: " + balance);
-		return false;
+		Command command = new WithdrawCommand(this, amount);
+		return executeAndStore(command);
+	}
+	public void __substractFromBalance(int amount) {
+		balance -= amount;
 	}
 	
 	/**

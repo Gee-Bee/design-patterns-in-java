@@ -5,6 +5,7 @@ import java.io.FileDescriptor;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.util.List;
 
 import junit.framework.TestCase;
 
@@ -63,15 +64,15 @@ public class AccountTest extends TestCase {
 		assertEquals(0, account.balance());
 	}
 	
-	public void testDisplayHistory() throws Exception {
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		System.setOut( new PrintStream(baos) );
+	public void testHistory() throws Exception {
+		List<Command> history = account.history();
 		account.deposit(100);
+		assertTrue(history.get(0).success());
 		account.withdraw(100);
+		assertTrue(history.get(1).success());
 		account.withdraw(100);
-		account.displayHistory();
-		System.setOut( new PrintStream(new FileOutputStream(FileDescriptor.out)) );
-		assertEquals("[Deposit: 100, balance: 100, Withdrawal: 100, balance: 0, Failed withdrawal: 100, balance: 0]\n", baos.toString());
+		assertFalse(history.get(2).success());
+		
 	}
 	
 	public void testInterestforBalanceLt10000() throws Exception {
